@@ -1,25 +1,25 @@
-﻿
-<div class="main-menu  d-none d-lg-block">
-    <nav>
-        <ul id="navigation">
-            <li><a href="index.html">home</a></li>
-            <li><a href="about.html">about</a></li>
-            <li>
-                <a href="#">blog <i class="ti-angle-down"></i></a>
-                <ul class="submenu">
-                    <li><a href="blog.html">blog</a></li>
-                    <li><a href="single-blog.html">single-blog</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">pages <i class="ti-angle-down"></i></a>
-                <ul class="submenu">
-                    <li><a href="elements.html">elements</a></li>
-
-                </ul>
-            </li>
-            <li><a href="service.html">services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+﻿<div class="col-xl-9 col-lg-9">
+    <div class="main-menu d-none d-lg-block">
+        <nav>
+            <ul id="navigation">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "About")">About</a></li>
+                <li>
+                    <a href="#">blog <i class="ti-angle-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="@Url.Action("Index", "Blog")">blog</a></li>
+                        <li><a href="@Url.Action("Single", "Blog")">single-blog</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">pages <i class="ti-angle-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="@Url.Action("Elements", "Pages")">elements</a></li>
+                    </ul>
+                </li>
+                <li><a href="@Url.Action("Index", "Services")">services</a></li>
+                <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 </div>
