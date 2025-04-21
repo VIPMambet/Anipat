@@ -40,5 +40,22 @@ namespace Anipat.Controllers {
             }
         }
 
+
+        public JsonResult SetCity(string city)
+        {
+            CookieOptions options = new CookieOptions();    
+            options.Expires = DateTime.Now.AddMinutes(1);    
+            try
+            {
+                Response.Cookies.Append("city",  city, options);
+                return Json(city);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }   
+        }
+
+
     }
 }

@@ -19,6 +19,20 @@
                 </li>
                 <li><a href="@Url.Action("Index", "Services")">services</a></li>
                 <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                <li><a href="@Url.Action("Index", "Team")">Team</a></li>
+                <li>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <a href="#">@User.Identity.Name</a>
+                        <a href="/Account/SignOut">| SingOut</a>
+                    }
+                    else
+                    {
+						<a href="/Account/Login"> | SignIn</a>
+						
+
+                    }
+                </li>
             </ul>
         </nav>
     </div>

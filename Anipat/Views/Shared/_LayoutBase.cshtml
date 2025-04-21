@@ -23,6 +23,12 @@
     <link rel="stylesheet" href="~/css/slicknav.css">
     <link rel="stylesheet" href="~/css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
 </head>
 <body>
 
@@ -40,6 +46,10 @@
                                 <ul>
                                     <li><a href="#">+880 4664 216</a></li>
                                     <li><a href="#">Mon - Sat 10:00 - 7:00</a></li>
+                                    <span> | </span>
+                                    <span">City : </span>
+                                    <span style="cursor:pointer;" id="spanCity">- none -</span>
+
                                 </ul>
                             </div>
                         </div>
@@ -104,7 +114,26 @@
     </div>
     <!-- slider_area_end -->
     @RenderBody()
+    <!-- team_area_start  -->
 
+    <div class="contact_anipat anipat_bg_1">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact_text text-center">
+                        <div class="section_title text-center">
+                            <h3>Why go with Anipat?</h3>
+                            <p>Because we know that even the best technology is only as good as the people behind it. 24/7 tech support.</p>
+                        </div>
+                        <div class="contact_btn d-flex align-items-center justify-content-center">
+                            <a href="contact.html" class="boxed-btn4">Contact Us</a>
+                            <p>Or  <a href="#"> +880 4664 216</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- footer_start  -->
     <footer class="footer">
         <div class="footer_top">
@@ -209,6 +238,31 @@
         </div>
     </footer>
     <!-- footer_end  -->
+    <!-- Модальное окно -->
+    <div class="modal fade contact-form" id="cityModal" tabindex="-1" role="dialog" aria-labelledby="cityModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="cityModalLabel">Select a city</h4>
+                </div>
+                <div class="modal-body">
+                    <select id="citySelect" class="form-control">
+                        <option value="Almaty">Almaty</option>
+                        <option value="Astana">Astana</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeBtn">Close</button>
+                    <button type="button" class="btn btn-secondary" id="saveChangeButton">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- JS here -->
     <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
@@ -237,6 +291,8 @@
     <script src="~/js/mail-script.js"></script>
 
     <script src="~/js/main.js"></script>
+   
+
     <script>
            $('#datepicker').datepicker({
                iconsLibrary: 'fontawesome',
@@ -257,8 +313,55 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function () {
 
+            var city = '@Context.Request.Cookies["city"]';
 
+            if (city.trim() !== "") {
+                $('#spanCity').html(city);
+            } else {
+                $('#cityModal').modal('show');
+            }
+
+            // Открытие модалки
+            $('#spanCity').on('click', function () {
+                $('#cityModal').modal('show');
+            });
+
+            // Закрытие модалки по кнопке "Close"
+            $('#closeBtn').on('click', function () {
+                $('#cityModal').modal('hide');
+            });
+
+            // Сохранение города и закрытие модалки
+            $('#saveChangeButton').on('click', function () {
+                var citySelect = $('#citySelect').val();
+
+                $.ajax({
+                    url: '/Home/SetCity',
+                    data: { city: citySelect },
+                    dataType: 'json',
+                    method: 'GET',
+                    success: function (data) {
+                        $('#spanCity').html(data);
+                        $('#cityModal').modal('hide');
+                    },
+                    error: function () {
+                        alert('Error');
+                    }
+                });
+            });
+
+            // Прокрутка вверх при открытии модалки
+            $('#cityModal').on('shown.bs.modal', function () {
+                window.scrollTo(0, 0);
+            });
+
+        });
+    </script>
+
+    
 
 
 </body>
